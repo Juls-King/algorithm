@@ -13,7 +13,7 @@ public class Baekjoon_15649 {
 	static int N;
 	static int M;
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 

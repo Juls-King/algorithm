@@ -14,7 +14,7 @@ public class Baekjoon_15655 {
 	static int M;
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	static int[] inputVal;
- 
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 

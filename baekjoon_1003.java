@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Baekjoon_1003 {
 	static int[] count = new int[2];
 	static int[] map;
- 
+
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
