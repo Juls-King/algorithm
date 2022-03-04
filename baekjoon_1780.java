@@ -7,7 +7,7 @@ public class Baekjoon_1780 {
     static int a = 0;    // -1 개수
 	static int b = 0;    // 0 갯수
 	static int c = 0;    // 1 갯수
-    
+     
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		

@@ -8,9 +8,8 @@ import java.util.StringTokenizer;
 
 public class Baekjoon_2805 {
 	static int max_mid = 0;	// 절단기의 최대값을 담을 변수
-
+ 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub!
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		String s = br.readLine();

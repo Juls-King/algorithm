@@ -15,7 +15,7 @@ public class Baekjoon_15664 {
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	static int[] inputVal;
 	static int[] memo;
-
+ 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
