@@ -3,7 +3,7 @@ package algorithm;
 import java.io.*;
 import java.util.*;
 
-public class baekjoon_1780 {
+public class Baekjoon_1780 {
     static int a = 0;    // -1 개수
 	static int b = 0;    // 0 갯수
 	static int c = 0;    // 1 갯수

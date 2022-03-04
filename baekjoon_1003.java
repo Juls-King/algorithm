@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class baekjoon_1003 {
+public class Baekjoon_1003 {
 	static int[] count = new int[2];
 	static int[] map;
 

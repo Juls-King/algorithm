@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class baekjoon_15655 {
+public class Baekjoon_15655 {
 	static Boolean[] visited; // 방문여부 확인 배열
 	static int N;
 	static int M;
