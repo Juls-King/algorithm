@@ -1,3 +1,4 @@
+// N과 M (5)
 package algorithm;
 
 import java.io.BufferedReader;
