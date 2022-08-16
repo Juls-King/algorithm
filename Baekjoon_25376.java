@@ -14,10 +14,12 @@ public class Baekjoon_25376 {
 	static int N;
 	static int[] switch_status;
 	static ArrayList<Integer>[] related_switch;
+	static StringBuilder sb;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
+		sb = new StringBuilder();
 
 		N = Integer.parseInt(br.readLine());
 
@@ -31,8 +33,10 @@ public class Baekjoon_25376 {
 			switch_status[i] = Integer.parseInt(st.nextToken());
 
 			related_switch[i] = new ArrayList<Integer>();
+			
+			sb.append(switch_status[i]);
 		}
-
+		
 		for (int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine());
 
@@ -48,9 +52,7 @@ public class Baekjoon_25376 {
 			return;
 		}
 
-		int result;
-
-		solution(1, 0);
+		solution(0);
 
 		if (min_cnt == Integer.MAX_VALUE) {
 			System.out.println(-1);
@@ -60,21 +62,19 @@ public class Baekjoon_25376 {
 
 	}
 
-	public static void solution(int depth, int count) {
-		if (depth == N+1) { // 입력한 depth에 도달 시 출력
-			return;
-		}
+	public static void solution(int count) {
 
 		for (int i = 1; i <= N; i++) { // 완전 탐색
 			if (visited[i - 1] == false && switch_status[i] == 0) {
 				visited[i - 1] = true; // 방문 처리
-//				System.out.println("(" + i + ")");
 
 				int[] temp = switch_status.clone();
 				
 				switchOn(i);
+				
 				count++;
-//				print();
+				
+				print();
 
 				if (lightAll()) {
 					if (min_cnt > count) {
@@ -84,7 +84,7 @@ public class Baekjoon_25376 {
 					return;
 				}
 
-				solution(depth + 1, count);
+				solution(count);
 
 				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
 				
