@@ -37,6 +37,8 @@ public class Baekjoon_25376 {
 			sb.append(switch_status[i]);
 		}
 		
+		System.out.println(sb);
+		
 		for (int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine());
 
@@ -47,7 +49,7 @@ public class Baekjoon_25376 {
 			}
 		}
 
-		if (lightAll()) {
+		if (lightAll_()) {
 			System.out.println(0);
 			return;
 		}
@@ -103,6 +105,21 @@ public class Baekjoon_25376 {
 		}
 
 		if (count == N) {
+			return true;
+		}
+
+		return false;
+	}
+	
+	public static boolean lightAll_() {
+		StringBuilder local_sb = new StringBuilder();
+
+		for (int i = 0; i < N; i++) {
+			local_sb.append("1");
+		}
+		System.out.println(local_sb);
+
+		if (local_sb.equals(sb)) {
 			return true;
 		}
 
