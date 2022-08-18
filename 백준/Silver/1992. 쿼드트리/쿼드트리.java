@@ -1,16 +1,19 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class Main {
+	static char[][] image;
+	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int N = Integer.parseInt(br.readLine());
 
-		char[][] image = new char[N][N];
+		image = new char[N][N];
 
 		for (int i = 0; i < N; i++) {
 			String str = br.readLine();
@@ -20,46 +23,32 @@ public class Main {
 			}
 		}
 
-		compress(N, image);
+		compress(N, 0, 0);
+
+		bw.flush();
+		bw.close();
 	}
 
-	public static void compress(int N, char[][] image) {
-		char first_val = image[0][0];
+	public static void compress(int N, int x, int y) throws IOException {
+		char first_val = image[x][y];
 
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
+		for (int i = x; i < (N + x); i++) {
+			for (int j = y; j < (N + y); j++) {
 				if (first_val != image[i][j]) {
-					System.out.print("(");
+					bw.write("(");
 					
-					for (int a = 0; a < 2; a++) {
-						for (int b = 0; b < 2; b++) {
-							char[][] ary = new char[N / 2][N / 2];
-
-							if (N > 2) {
-								for (int c = 0; c < N / 2; c++) {
-									for (int d = 0; d < N / 2; d++) {
-										ary[c][d] = image[c + (a * (N / 2))][b * (N / 2) + d];
-									}
-								}
-							} else {
-								ary[0][0] = image[a][b];
-							}
-
-//							System.out.print("(");
-							compress(N / 2, ary);
-//							System.out.print(")");
-						}
-					}
+					compress(N / 2, x, y);
+					compress(N / 2, x, y + (N / 2));
+					compress(N / 2, x + (N / 2), y);
+					compress(N / 2, x + (N / 2), y + (N / 2));
 					
-					System.out.print(")");
-
+					bw.write(")");
+					
 					return;
 				}
 			}
 		}
 
-		System.out.print(first_val);
-
+		bw.write(first_val);
 	}
-
 }
