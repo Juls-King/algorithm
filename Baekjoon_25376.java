@@ -70,7 +70,8 @@ public class Baekjoon_25376 {
 			if (visited[i - 1] == false && switch_status[i] == 0) {
 				visited[i - 1] = true; // 방문 처리
 
-				int[] temp = switch_status.clone();
+//				int[] temp = switch_status.clone();
+				StringBuilder sb_bak = sb;
 				
 				switchOn(i);
 				
@@ -90,7 +91,8 @@ public class Baekjoon_25376 {
 
 				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
 				
-				switch_status = temp.clone();
+//				switch_status = temp.clone();
+				sb = sb_bak;
 			}
 		}
 	}
