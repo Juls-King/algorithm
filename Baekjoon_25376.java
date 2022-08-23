@@ -10,7 +10,6 @@ public class Baekjoon_25376 {
 	static boolean visited[];
 	static int min_cnt = Integer.MAX_VALUE;
 	static int N;
-	static int[] switch_status;
 	static ArrayList<Integer>[] related_switch;
 	static StringBuilder sb;
 	static StringBuilder max_bit;
@@ -27,7 +26,6 @@ public class Baekjoon_25376 {
 
 		visited = new boolean[N];
 
-		switch_status = new int[N + 1];
 		related_switch = new ArrayList[N + 1];
 
 		st = new StringTokenizer(br.readLine());
@@ -68,26 +66,31 @@ public class Baekjoon_25376 {
 	}
 
 	public static void solution(int count) {
+		String test1 = Integer.toBinaryString(sb_int);
+		
+		if(test1.length() < 20) {
+			test1 = String.format("%0" + N + "d", Long.parseLong(test1));
+		}
+		
 		for (int i = 1; i <= N; i++) { // 완전 탐색
 
-			String test1 = Integer.toBinaryString(sb_int);
-//			test1 = String.format("%0" + N + "d", Long.parseLong(test1));
-
-			StringBuilder sb_ = new StringBuilder();
-			int test_len = N - test1.length();
-			for (int j = 0; j < test_len; j++) {
-				sb_.append("0");
-			}
-
-			test1 = sb_ + test1;
-
+//			String test1 = Integer.toBinaryString(sb_int);
+//			
+//			if(test1.length() < 20) {
+//				test1 = String.format("%0" + N + "d", Long.parseLong(test1));
+//			}
+			
 			if (visited[i - 1] == false && test1.charAt(i - 1) == '0') {
 				visited[i - 1] = true; // 방문 처리
 
 				int sb_bak = sb_int;
 
-				switchOn_(i);
+				switchOn(i);
 				count++;
+				
+				if(count > min_cnt) {
+					return;
+				}
 
 				if (sb_int == max_bit_int) {
 					if (min_cnt > count) {
@@ -96,7 +99,7 @@ public class Baekjoon_25376 {
 
 					return;
 				}
-
+				
 				solution(count);
 
 				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
@@ -106,7 +109,7 @@ public class Baekjoon_25376 {
 		}
 	}
 
-	public static void switchOn_(int k) {
+	public static void switchOn(int k) {
 		sb_int ^= (1 << (N - k));
 
 		int len = related_switch[k].size();
