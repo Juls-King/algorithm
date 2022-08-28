@@ -3,121 +3,101 @@ package algorithm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Baekjoon_25376 {
 	static boolean visited[];
 	static int min_cnt = Integer.MAX_VALUE;
 	static int N;
-	static ArrayList<Integer>[] related_switch;
-	static StringBuilder sb;
-	static StringBuilder max_bit;
-	static int sb_int;
-	static int max_bit_int;
+	static int[] related_switch;
+	static int bit = 0;
+	static int max_bit = 0;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
-		sb = new StringBuilder();
-		max_bit = new StringBuilder();
+		StringTokenizer st, st2;
 
 		N = Integer.parseInt(br.readLine());
 
 		visited = new boolean[N];
 
-		related_switch = new ArrayList[N + 1];
+		related_switch = new int[N + 1];
 
 		st = new StringTokenizer(br.readLine());
-		for (int i = 1; i <= N; i++) {
+//		for (int i = 1; i <= N; i++) {
+//			
+//		}
 
-			related_switch[i] = new ArrayList<Integer>();
-
-			sb.append(st.nextToken());
-			max_bit.append("1");
-		}
-
-		sb_int = Integer.parseInt(sb.toString(), 2);
-		max_bit_int = Integer.parseInt(max_bit.toString(), 2);
+		max_bit = (max_bit | (1 << N)) - 1;
 
 		for (int i = 1; i <= N; i++) {
-			st = new StringTokenizer(br.readLine());
+			if (st.nextToken().equals("1")) {
+				bit |= (1 << (N - i));
+			}
+			
+			st2 = new StringTokenizer(br.readLine());
 
-			int m = Integer.parseInt(st.nextToken());
+			int m = Integer.parseInt(st2.nextToken());
+
+			int temp_bit = 0;
 
 			for (int j = 1; j <= m; j++) {
-				related_switch[i].add(Integer.parseInt(st.nextToken()));
+				int idx = Integer.parseInt(st2.nextToken());
+				temp_bit |= (1 << (N - idx));
 			}
+
+			related_switch[i] = temp_bit;
 		}
 
-		if (sb_int == max_bit_int) {
+		if (bit == max_bit) {
 			System.out.println(0);
 			return;
 		}
 
 		solution(0);
 
-		if (min_cnt == Integer.MAX_VALUE) {
+		if (min_cnt == Integer.MAX_VALUE)
 			System.out.println(-1);
-		} else {
+		else
 			System.out.println(min_cnt);
-		}
-
 	}
 
 	public static void solution(int count) {
-		String test1 = Integer.toBinaryString(sb_int);
-		
-		if(test1.length() < 20) {
-			test1 = String.format("%0" + N + "d", Long.parseLong(test1));
-		}
-		
 		for (int i = 1; i <= N; i++) { // 완전 탐색
 
-//			String test1 = Integer.toBinaryString(sb_int);
-//			
-//			if(test1.length() < 20) {
-//				test1 = String.format("%0" + N + "d", Long.parseLong(test1));
-//			}
-			
-			if (visited[i - 1] == false && test1.charAt(i - 1) == '0') {
+			int bit_check = bit & (1 << (N - i));
+
+			if (visited[i - 1] == false && bit_check == 0) {
 				visited[i - 1] = true; // 방문 처리
 
-				int sb_bak = sb_int;
+				int bit_bak = bit;
 
 				switchOn(i);
 				count++;
-				
-				if(count > min_cnt) {
+
+				if (count > min_cnt) {
 					return;
 				}
 
-				if (sb_int == max_bit_int) {
+				if (bit == max_bit) {
 					if (min_cnt > count) {
 						min_cnt = count;
 					}
 
 					return;
 				}
-				
+
 				solution(count);
 
 				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
 
-				sb_int = sb_bak;
+				bit = bit_bak;
 			}
 		}
 	}
 
 	public static void switchOn(int k) {
-		sb_int ^= (1 << (N - k));
-
-		int len = related_switch[k].size();
-
-		for (int i = 0; i < len; i++) {
-			int val = related_switch[k].get(i);
-
-			sb_int ^= (1 << (N - val));
-		}
+		bit |= (1 << (N - k));
+		bit ^= related_switch[k];
 	}
 }
