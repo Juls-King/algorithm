@@ -9,6 +9,7 @@ public class Baekjoon_25376 {
 	static boolean visited[];
 	static int min_cnt = Integer.MAX_VALUE;
 	static int N;
+	static int NN;
 	static int[] related_switch;
 	static int bit = 0;
 	static int max_bit = 0;
@@ -18,8 +19,10 @@ public class Baekjoon_25376 {
 		StringTokenizer st, st2;
 
 		N = Integer.parseInt(br.readLine());
+		NN = (int) Math.pow(2, N);
 
-		visited = new boolean[N];
+//		visited = new boolean[N];
+		visited = new boolean[NN];
 
 		related_switch = new int[N + 1];
 
@@ -63,12 +66,17 @@ public class Baekjoon_25376 {
 	}
 
 	public static void solution(int count) {
+		
 		for (int i = 1; i <= N; i++) { // 완전 탐색
 
 			int bit_check = bit & (1 << (N - i));
+			
+			if(visited[bit] == true) {
+				return;
+			}
 
-			if (visited[i - 1] == false && bit_check == 0) {
-				visited[i - 1] = true; // 방문 처리
+			if (visited[bit] == false && bit_check == 0) {
+				visited[bit] = true; // 방문 처리
 
 				int bit_bak = bit;
 
@@ -88,10 +96,12 @@ public class Baekjoon_25376 {
 				}
 
 				solution(count);
-
-				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
-
+				
 				bit = bit_bak;
+
+				visited[bit] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
+
+//				bit = bit_bak;
 			}
 		}
 	}
