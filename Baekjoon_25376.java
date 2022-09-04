@@ -62,11 +62,16 @@ public class Baekjoon_25376 {
 	}
 
 	public static void solution(int count, int bit) {
+		
 		for (int i = 1; i <= N; i++) { // 완전 탐색
 
 			int bit_check = bit & (1 << (N - i));
+			
+			if(visited[bit] == true) {
+				return;
+			}
 
-			if (visited[bit] == false && bit_check == 0 ) {
+			if (visited[bit] == false && bit_check == 0) {
 				visited[bit] = true; // 방문 처리
 
 //				int bit_bak = bit;
@@ -89,6 +94,8 @@ public class Baekjoon_25376 {
 				solution(count, bit);
 
 //				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
+				
+//				visited[bit] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
 
 //				bit = bit_bak;
 			}
