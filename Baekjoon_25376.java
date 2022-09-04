@@ -10,23 +10,22 @@ public class Baekjoon_25376 {
 	static int min_cnt = Integer.MAX_VALUE;
 	static int N;
 	static int[] related_switch;
-	static int bit = 0;
+//	static int bit = 0;
 	static int max_bit = 0;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st, st2;
 
+		int bit = 0;
+		
 		N = Integer.parseInt(br.readLine());
 
-		visited = new boolean[N];
+		visited = new boolean[(int) Math.pow(2, N)];
 
 		related_switch = new int[N + 1];
 
 		st = new StringTokenizer(br.readLine());
-//		for (int i = 1; i <= N; i++) {
-//			
-//		}
 
 		max_bit = (max_bit | (1 << N)) - 1;
 
@@ -54,7 +53,7 @@ public class Baekjoon_25376 {
 			return;
 		}
 
-		solution(0);
+		solution(0, bit);
 
 		if (min_cnt == Integer.MAX_VALUE)
 			System.out.println(-1);
@@ -62,17 +61,17 @@ public class Baekjoon_25376 {
 			System.out.println(min_cnt);
 	}
 
-	public static void solution(int count) {
+	public static void solution(int count, int bit) {
 		for (int i = 1; i <= N; i++) { // 완전 탐색
 
 			int bit_check = bit & (1 << (N - i));
 
-			if (visited[i - 1] == false && bit_check == 0) {
-				visited[i - 1] = true; // 방문 처리
+			if (visited[bit] == false && bit_check == 0 ) {
+				visited[bit] = true; // 방문 처리
 
-				int bit_bak = bit;
+//				int bit_bak = bit;
 
-				switchOn(i);
+				bit = switchOn(i, bit);
 				count++;
 
 				if (count > min_cnt) {
@@ -87,17 +86,19 @@ public class Baekjoon_25376 {
 					return;
 				}
 
-				solution(count);
+				solution(count, bit);
 
-				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
+//				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
 
-				bit = bit_bak;
+//				bit = bit_bak;
 			}
 		}
 	}
 
-	public static void switchOn(int k) {
+	public static int switchOn(int k, int bit) {
 		bit |= (1 << (N - k));
 		bit ^= related_switch[k];
+		
+		return bit;
 	}
 }
