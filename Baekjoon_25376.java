@@ -3,6 +3,8 @@ package algorithm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Baekjoon_25376 {
@@ -10,7 +12,6 @@ public class Baekjoon_25376 {
 	static int min_cnt = Integer.MAX_VALUE;
 	static int N;
 	static int[] related_switch;
-//	static int bit = 0;
 	static int max_bit = 0;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
@@ -53,12 +54,51 @@ public class Baekjoon_25376 {
 			return;
 		}
 
-		solution(0, bit);
+//		solution(0, bit);
+		bfs(bit);
 
 		if (min_cnt == Integer.MAX_VALUE)
 			System.out.println(-1);
 		else
 			System.out.println(min_cnt);
+	}
+	
+	public static void bfs(int bit) {
+		Queue<Integer> q = new LinkedList<>();
+
+		q.offer(bit);
+//		visited[bit] = true;
+
+		while (!q.isEmpty()) {
+			int count = 0;
+			int temp = q.poll();
+//			System.out.print(temp + " ");
+
+			for (int i = 1; i <= N; i++) {
+				int bit_check = bit & (1 << (N - i));
+				
+				if (visited[bit] == false && bit_check == 0) {
+					visited[bit] = true;
+					
+					bit = switchOn(i, bit);
+					count++;
+					
+					if (count > min_cnt) {
+						break;
+					}
+
+					if (bit == max_bit) {
+						if (min_cnt > count) {
+							min_cnt = count;
+						}
+
+						break;
+					}
+					
+					q.offer(bit);
+				}
+			}
+		}
 	}
 
 	public static void solution(int count, int bit) {
@@ -73,8 +113,6 @@ public class Baekjoon_25376 {
 
 			if (visited[bit] == false && bit_check == 0) {
 				visited[bit] = true; // 방문 처리
-
-//				int bit_bak = bit;
 
 				bit = switchOn(i, bit);
 				count++;
@@ -93,11 +131,7 @@ public class Baekjoon_25376 {
 
 				solution(count, bit);
 
-//				visited[i - 1] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
-				
 //				visited[bit] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
-
-//				bit = bit_bak;
 			}
 		}
 	}
