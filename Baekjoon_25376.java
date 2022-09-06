@@ -3,6 +3,7 @@ package algorithm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -13,6 +14,14 @@ public class Baekjoon_25376 {
 	static int N;
 	static int[] related_switch;
 	static int max_bit = 0;
+	
+	public class Node {
+		public int count;
+		
+		public Node(int count) {
+			this.count = count;
+		}
+	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -66,8 +75,8 @@ public class Baekjoon_25376 {
 	public static void bfs(int bit) {
 		Queue<Integer> q = new LinkedList<>();
 
-		q.offer(bit);
-//		visited[bit] = true;
+		q.offer(0);
+		visited[0] = true;
 
 		while (!q.isEmpty()) {
 			int count = 0;
@@ -77,8 +86,9 @@ public class Baekjoon_25376 {
 			for (int i = 1; i <= N; i++) {
 				int bit_check = bit & (1 << (N - i));
 				
-				if (visited[bit] == false && bit_check == 0) {
-					visited[bit] = true;
+				if (visited[i] == false && bit_check == 0) {
+					q.offer(i);
+					visited[i] = true;
 					
 					bit = switchOn(i, bit);
 					count++;
@@ -94,8 +104,6 @@ public class Baekjoon_25376 {
 
 						break;
 					}
-					
-					q.offer(bit);
 				}
 			}
 		}
