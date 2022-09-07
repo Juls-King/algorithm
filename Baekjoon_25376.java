@@ -16,9 +16,11 @@ public class Baekjoon_25376 {
 	static int max_bit = 0;
 	
 	public class Node {
+		public int bit;
 		public int count;
 		
-		public Node(int count) {
+		public Node(int bit, int count) {
+			this.bit = bit;
 			this.count = count;
 		}
 	}
@@ -74,36 +76,41 @@ public class Baekjoon_25376 {
 	
 	public static void bfs(int bit) {
 		Queue<Integer> q = new LinkedList<>();
+		Queue<Integer> q2 = new LinkedList<>();
+		int count = 0;
 
-		q.offer(0);
-		visited[0] = true;
-
+		q.offer(bit);
+		q2.offer(count);
+		visited[bit] = true;
+		
 		while (!q.isEmpty()) {
-			int count = 0;
-			int temp = q.poll();
+//			count = 0;
+			int temp_bit = q.poll();
+			int cnt = q2.poll();
 //			System.out.print(temp + " ");
+			
+			if (temp_bit == max_bit) {
+				if (min_cnt > cnt) {
+					min_cnt = cnt;
+				}
+
+				break;
+			}
+			
+//			count = 0;
 
 			for (int i = 1; i <= N; i++) {
-				int bit_check = bit & (1 << (N - i));
+				int bit_check = temp_bit & (1 << (N - i));
 				
-				if (visited[i] == false && bit_check == 0) {
-					q.offer(i);
-					visited[i] = true;
+				temp_bit = switchOn(i, temp_bit);
+				
+				if (visited[temp_bit] == false && bit_check == 0) {
+					visited[temp_bit] = true;
 					
-					bit = switchOn(i, bit);
-					count++;
+					cnt++;
 					
-					if (count > min_cnt) {
-						break;
-					}
-
-					if (bit == max_bit) {
-						if (min_cnt > count) {
-							min_cnt = count;
-						}
-
-						break;
-					}
+					q.offer(temp_bit);
+					q2.offer(cnt);
 				}
 			}
 		}
