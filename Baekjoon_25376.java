@@ -3,7 +3,6 @@ package algorithm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -13,15 +12,8 @@ public class Baekjoon_25376 {
 	static int min_cnt = Integer.MAX_VALUE;
 	static int N;
 	static int[] related_switch;
+//	static int bit = 0;
 	static int max_bit = 0;
-	
-	public class Node {
-		public int count;
-		
-		public Node(int count) {
-			this.count = count;
-		}
-	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -63,7 +55,6 @@ public class Baekjoon_25376 {
 			return;
 		}
 
-//		solution(0, bit);
 		bfs(bit);
 
 		if (min_cnt == Integer.MAX_VALUE)
@@ -73,73 +64,39 @@ public class Baekjoon_25376 {
 	}
 	
 	public static void bfs(int bit) {
-		Queue<Integer> q = new LinkedList<>();
+		Queue<Integer> q_bit = new LinkedList<>();
+		Queue<Integer> q_cnt = new LinkedList<>();
 
-		q.offer(0);
-		visited[0] = true;
+		q_bit.offer(bit);
+		q_cnt.offer(0);
+//		visited[bit] = true;
 
-		while (!q.isEmpty()) {
-			int count = 0;
-			int temp = q.poll();
-//			System.out.print(temp + " ");
+		while (!q_bit.isEmpty()) {
+			int l_bit = q_bit.poll();
+			int l_cnt = q_cnt.poll();
+			
+			if (l_bit == max_bit) {
+				if (min_cnt > l_cnt) {
+					min_cnt = l_cnt;
+				}
+
+				break;
+			}
 
 			for (int i = 1; i <= N; i++) {
-				int bit_check = bit & (1 << (N - i));
+				int bit_chk = l_bit & (1 << (N - i));
 				
-				if (visited[i] == false && bit_check == 0) {
-					q.offer(i);
-					visited[i] = true;
+				if (bit_chk == 0) {
+										
+					l_bit = switchOn(i, l_bit);
 					
-					bit = switchOn(i, bit);
-					count++;
-					
-					if (count > min_cnt) {
-						break;
-					}
-
-					if (bit == max_bit) {
-						if (min_cnt > count) {
-							min_cnt = count;
-						}
-
-						break;
+					if(visited[l_bit] == false) {
+						visited[l_bit] = true;
+						
+						q_bit.offer(l_bit);
+						q_cnt.offer(l_cnt++);
 					}
 				}
-			}
-		}
-	}
-
-	public static void solution(int count, int bit) {
-		
-		for (int i = 1; i <= N; i++) { // 완전 탐색
-
-			int bit_check = bit & (1 << (N - i));
-			
-			if(visited[bit] == true) {
-				return;
-			}
-
-			if (visited[bit] == false && bit_check == 0) {
-				visited[bit] = true; // 방문 처리
-
-				bit = switchOn(i, bit);
-				count++;
-
-				if (count > min_cnt) {
-					return;
-				}
-
-				if (bit == max_bit) {
-					if (min_cnt > count) {
-						min_cnt = count;
-					}
-
-					return;
-				}
-
-				solution(count, bit);
-
-//				visited[bit] = false; // 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
 			}
 		}
 	}
