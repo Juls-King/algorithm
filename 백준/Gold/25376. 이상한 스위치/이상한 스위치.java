@@ -45,11 +45,11 @@ public class Main {
 			
 			st2 = new StringTokenizer(br.readLine());
 
-			int m = Integer.parseInt(st2.nextToken());
+			int M = Integer.parseInt(st2.nextToken());
 
 			int temp_bit = 0;
 
-			for (int j = 1; j <= m; j++) {
+			for (int j = 1; j <= M; j++) {
 				int idx = Integer.parseInt(st2.nextToken());
 				temp_bit |= (1 << (N - idx));
 			}
@@ -84,6 +84,7 @@ public class Main {
 				if (min_cnt > l_cnt) {
 					min_cnt = l_cnt;
 				}
+
 				break;
 			}
 
