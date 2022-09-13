@@ -12,8 +12,17 @@ public class Baekjoon_25376 {
 	static int min_cnt = Integer.MAX_VALUE;
 	static int N;
 	static int[] related_switch;
-//	static int bit = 0;
 	static int max_bit = 0;
+	
+	public static class Node {
+		public int bit;
+		public int cnt;
+		
+		public Node(int bit, int cnt) {
+			this.bit = bit;
+			this.cnt = cnt;
+		}
+	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -38,11 +47,11 @@ public class Baekjoon_25376 {
 			
 			st2 = new StringTokenizer(br.readLine());
 
-			int m = Integer.parseInt(st2.nextToken());
+			int M = Integer.parseInt(st2.nextToken());
 
 			int temp_bit = 0;
 
-			for (int j = 1; j <= m; j++) {
+			for (int j = 1; j <= M; j++) {
 				int idx = Integer.parseInt(st2.nextToken());
 				temp_bit |= (1 << (N - idx));
 			}
@@ -64,16 +73,14 @@ public class Baekjoon_25376 {
 	}
 	
 	public static void bfs(int bit) {
-		Queue<Integer> q_bit = new LinkedList<>();
-		Queue<Integer> q_cnt = new LinkedList<>();
+		Queue<Node> q = new LinkedList<>();
 
-		q_bit.offer(bit);
-		q_cnt.offer(0);
-//		visited[bit] = true;
+		q.offer(new Node(bit, 0));
 
-		while (!q_bit.isEmpty()) {
-			int l_bit = q_bit.poll();
-			int l_cnt = q_cnt.poll();
+		while (!q.isEmpty()) {
+			Node node = q.poll();
+			int l_bit = node.bit;
+			int l_cnt = node.cnt;
 			
 			if (l_bit == max_bit) {
 				if (min_cnt > l_cnt) {
@@ -83,18 +90,19 @@ public class Baekjoon_25376 {
 				break;
 			}
 
+			int t_bit = 0;
+			
 			for (int i = 1; i <= N; i++) {
 				int bit_chk = l_bit & (1 << (N - i));
 				
 				if (bit_chk == 0) {
 										
-					l_bit = switchOn(i, l_bit);
+					t_bit = switchOn(i, l_bit);
 					
-					if(visited[l_bit] == false) {
-						visited[l_bit] = true;
+					if(visited[t_bit] == false) {
+						visited[t_bit] = true;
 						
-						q_bit.offer(l_bit);
-						q_cnt.offer(l_cnt++);
+						q.offer(new Node(t_bit, l_cnt + 1));
 					}
 				}
 			}
