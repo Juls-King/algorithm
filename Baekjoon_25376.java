@@ -76,19 +76,23 @@ public class Baekjoon_25376 {
 		Queue<Node> q = new LinkedList<>();
 
 		q.offer(new Node(bit, 0));
+//		String test3 = Integer.toBinaryString(bit);
+//		test3 = String.format("%0" + N + "d", Long.parseLong(test3));
+//		System.out.println("ofer : " + test3);
 
 		while (!q.isEmpty()) {
 			Node node = q.poll();
 			int l_bit = node.bit;
 			int l_cnt = node.cnt;
 			
-			if (l_bit == max_bit) {
-				if (min_cnt > l_cnt) {
-					min_cnt = l_cnt;
-				}
-
-				break;
-			}
+//			String test = Integer.toBinaryString(l_bit);
+//			test = String.format("%0" + N + "d", Long.parseLong(test));
+//			System.out.println("poll : " + test);
+			
+//			if (l_bit == max_bit) {
+//				min_cnt = l_cnt;
+//				break;
+//			}
 
 			int t_bit = 0;
 			
@@ -96,13 +100,20 @@ public class Baekjoon_25376 {
 				int bit_chk = l_bit & (1 << (N - i));
 				
 				if (bit_chk == 0) {
-										
 					t_bit = switchOn(i, l_bit);
 					
 					if(visited[t_bit] == false) {
 						visited[t_bit] = true;
 						
+						if (t_bit == max_bit) {
+							min_cnt = l_cnt + 1;
+							return;
+						}
+						
 						q.offer(new Node(t_bit, l_cnt + 1));
+//						String test2 = Integer.toBinaryString(t_bit);
+//						test2 = String.format("%0" + N + "d", Long.parseLong(test2));
+//						System.out.println("ofer : " + test2);
 					}
 				}
 			}
