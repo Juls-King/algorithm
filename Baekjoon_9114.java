@@ -9,6 +9,10 @@ public class Baekjoon_9114 {
 	static int N;
 	static char[][][] map;
 	static int[][][] pos;
+	static int[] king;
+	static int[] pawn;
+	static int[] dx = {0,1,1,1,0,-1,-1,-1};
+	static int[] dy = {1,1,0,-1,-1,-1,0,1};
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,6 +22,8 @@ public class Baekjoon_9114 {
 		
 		map = new char[N][8][8];
 		pos = new int[N][2][2];
+		king = new int[2];
+		pawn = new int[2];
 		
 		for(int i=0 ; i<N ; i++) {
 			for(int j=0 ; j<8 ; j++) {
@@ -36,7 +42,7 @@ public class Baekjoon_9114 {
 			}
 		}
 		
-		for(int i=0 ; i<5 ; i++) {
+		for(int i=0 ; i<8 ; i++) {
 			
 		}
 		
@@ -44,6 +50,10 @@ public class Baekjoon_9114 {
 		
 		
 		
+	}
+	
+	public static void movePawn() {
+		pawn[0] = pawn[0] + ;
 	}
 	
 	public static void print(int i) {
