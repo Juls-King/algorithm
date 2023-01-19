@@ -18,9 +18,8 @@ public class B17413 {
 		boolean flag = false;
 		
 		for(String s : strAry)  {
-			if(s.equals("<") || flag == false) {
+			if(s.equals("<")) {
 				if(sb.length() != 0) {
-					
 					st = new StringTokenizer(sb.toString());
 					
 					while(st.hasMoreTokens()) {
@@ -28,22 +27,32 @@ public class B17413 {
 						
 						sb2.append(st.nextToken());
 						sb2.reverse();
-						System.out.print(sb2.toString() + " ");
+						System.out.print(sb2.toString());
+						
+						if(st.hasMoreTokens() == true) {
+							System.out.print(" ");
+						}
 					}
 					
-					System.out.print(sb.toString());
+//					System.out.print(sb.toString());
 					sb.setLength(0);
 				}
 				
 				System.out.print(s);
 				
 				flag = true;
-				continue;
 			}
-			else if(s.equals(">") || flag == true) {
-				sb.append(s);
+			else if(s.equals(">")) {
+//				sb.append(s);
+				System.out.print(s);
 				
 				flag = false;
+			}
+			else if (flag == true) {
+				System.out.print(s);
+			}
+			else if (flag == false) {
+				sb.append(s);
 			}
 			
 			
