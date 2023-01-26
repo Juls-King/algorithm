@@ -13,50 +13,39 @@ public class B17413 {
 		String str = br.readLine();
 		String[] strAry = str.split("");
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st;
+		
+		StringTokenizer st = new StringTokenizer(str);
 		
 		boolean flag = false;
 		
-		for(String s : strAry)  {
-			if(s.equals("<")) {
-				if(sb.length() != 0) {
-					st = new StringTokenizer(sb.toString());
-					
-					while(st.hasMoreTokens()) {
-						StringBuilder sb2 = new StringBuilder();
-						
-						sb2.append(st.nextToken());
-						sb2.reverse();
-						System.out.print(sb2.toString());
-						
-						if(st.hasMoreTokens() == true) {
-							System.out.print(" ");
-						}
-					}
-					
-//					System.out.print(sb.toString());
-					sb.setLength(0);
-				}
-				
-				System.out.print(s);
-				
+//		while(st.hasMoreTokens()) {
+//			StringBuilder sb = new StringBuilder();
+//			sb.append(st.nextToken());
+//			sb.reverse();
+//			System.out.print(sb.toString() + " ");
+//		}
+		int index = 0;
+		
+		for(String s : strAry) {
+			index++;
+			
+			if(s.equals("<") || flag == true) {
 				flag = true;
-			}
-			else if(s.equals(">")) {
-//				sb.append(s);
 				System.out.print(s);
-				
+				continue;
+			}
+			else if (s.equals(">")) {
 				flag = false;
-			}
-			else if (flag == true) {
 				System.out.print(s);
-			}
-			else if (flag == false) {
-				sb.append(s);
+				continue;
 			}
 			
+			sb.append(s);
 			
-			
+
+//			System.out.print(s);
 		}
+		
+		
 	}
 }
