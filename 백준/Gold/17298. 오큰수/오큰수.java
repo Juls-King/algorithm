@@ -65,8 +65,8 @@ public class Main {
 			}
 			
 			
-			stack.push(i);
-			stack2.push(num);
+//			stack.push(i);
+//			stack2.push(num);
 		}
 		
 		for(int i=0 ; i<N ; i++) {
