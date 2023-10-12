@@ -6,11 +6,16 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class B2309 {
+	
+//	static int sum = 0;
+	static boolean visited[];
+	static int N;
+	static boolean ended;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		int N = 9;
+		N = 9;
 		
 		int[] ary = new int[N];
 		
@@ -20,17 +25,32 @@ public class B2309 {
 		
 		Arrays.sort(ary);
 		
-		System.out.println(Arrays.toString(ary));
+		dfs(ary, 0, 0);
 	}
 	
-	public static void dfs(int ary, int num) {
-		if(num > 100) {
+	public static void dfs(int[] ary, int i, int sum) {
+		
+		if(ended == true) {
 			return;
 		}
-		
-		if(num == 100) {
+		else if(sum > 100) {
+			return;
+		}
+		else if(sum == 100) {
 			
 		}
+		
+		int num = ary[i];
+		
+		for (int j=0 ; j<N ; j++) {
+			if (visited[j] == false) {
+				visited[j] = true;
+				
+				dfs(ary, i+1);
+				
+				visited[j] = false;
+			}
+		}
 	}
-
+	
 }
