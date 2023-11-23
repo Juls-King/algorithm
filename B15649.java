@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 public class B15649 {
 	
-	static boolean[] check;
+	static boolean[] visited;
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -19,11 +19,11 @@ public class B15649 {
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		
-		check = new boolean[N];
+		visited = new boolean[N];
 		
 		dfs(N, M, 0);
 		
-		System.out.println(N + M);
+//		System.out.println(N + M);
 		
 	}
 	
@@ -31,6 +31,19 @@ public class B15649 {
 		if(depth == m) {
 			System.out.println();
 			return;
+		}
+		
+		
+		
+		for(int i=0 ; i<n ; i++) {
+			if(visited[i] == false) {
+				
+				visited[i] = true;
+				
+				dfs(n, m, depth + 1);
+				
+				visited[i] = false;
+			}
 		}
 		
 		
