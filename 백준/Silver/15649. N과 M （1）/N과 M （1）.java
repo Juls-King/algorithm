@@ -48,7 +48,5 @@ public class Main {
 				visited[j] = false;	// 다음 depth 완료 후 방문여부를 초기화 해줘야 모든 경우에수 탐색 할 수 있다
 			}
 		}
-		
 	}
-
 }
