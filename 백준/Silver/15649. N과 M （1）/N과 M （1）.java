@@ -4,39 +4,46 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+
+	static boolean[] visited;
 	static int N, M;
-	static char[] arr;
-	static boolean[] ck;
+	static char[] ary;
 	static StringBuilder sb = new StringBuilder();
-	
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		
+
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		
-		arr = new char[2 * M];
-		ck = new boolean[N + 1];
-		back(0);
-		System.out.print(sb);
+
+		visited = new boolean[N + 1];
+		ary = new char[M * 2];
+
+		dfs(0);
+
+		System.out.println(sb);
 	}
-	
-	static void back(int idx) {
-		if (idx >= M) {
-			arr[2 * M - 1] = '\n';
-			sb.append(arr);
-			return ;
+
+	public static void dfs(int depth) {
+		if (depth == M) {
+			ary[2 * M - 1] = '\n';
+			sb.append(ary);
+			return;
 		}
-		
+
 		int i = 0;
 		for (i = 1; i <= N; i++) {
-			if (!ck[i]) {
-				ck[i] = true;
-				arr[2 * idx] = (char)(i + '0');
-				arr[2 * idx + 1] = ' ';
-				back(idx + 1);
-				ck[i] = false;
+			if (visited[i] == false) {
+
+				visited[i] = true;
+
+				ary[2 * depth] = (char) (i + '0');
+				ary[2 * depth + 1] = ' ';
+
+				dfs(depth + 1);
+
+				visited[i] = false;
 			}
 		}
 	}
