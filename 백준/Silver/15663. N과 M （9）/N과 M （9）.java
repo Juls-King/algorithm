@@ -12,7 +12,6 @@ public class Main {
 	static int[] ary;
 	static StringBuilder sb = new StringBuilder();
 	static int[] nums;
-//	static int[] memo;
 	static Map<String, Integer> memo = new HashMap<>();
 
 	public static void main(String[] args) throws IOException {
@@ -25,7 +24,6 @@ public class Main {
 		visited = new boolean[N + 1];
 		ary = new int[M];
 		nums = new int[N + 1];
-//		memo = new int[N + 1];
 
 		st = new StringTokenizer(br.readLine());
 
@@ -43,13 +41,10 @@ public class Main {
 
 	public static void dfs(int depth) {
 		if (depth == M) {
-			
 			String a = Arrays.toString(ary);
-//			String b = Arrays.toString(memo);
 			
-//			if (a.equals(b)) {
 			if(memo.get(a) == null) {
-				memo.put(a, 1);
+				memo.put(a, 0);
 			}
 			else {
 				return;
@@ -61,16 +56,18 @@ public class Main {
 
 			sb.append("\n");
 			
-//			memo = Arrays.copyOf(ary, ary.length);
-
 			return;
 		}
 
 		int i = 0;
 		for (i = 1; i <= N; i++) {
-			if (depth == 0 && nums[i - 1] == nums[i]) {
-				continue;
-			}
+//			if (depth == 0 && nums[i - 1] == nums[i]) {
+//				continue;
+//			}
+			
+//			if (depth > 0 && ary[depth - 1] > nums[i]) {
+//				continue;
+//			}
 			
 			if (visited[i] == false) {
 				visited[i] = true;
